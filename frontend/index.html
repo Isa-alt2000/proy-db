@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Datos de contacto</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="script" href="script.js">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <header>
         <div class="arriba">
             <div class="logos">
-                <img src="img/gob_logo.png" alt="Logo CDMX">
+                <img src="img/gob_logo.png" alt="Logo CDMX"/>
                 <div class="texto-logo">
                     <h1>ADIP</h1>
                     <h5>AGENCIA DIGITAL DE INNOVACIÓN PÚBLICA</h5>
@@ -22,27 +21,24 @@
     </header>
 
     <div class="grupo-datos">
-
-        <div class="agregar-usuario" id="agregar-usuario">
-            <div class="placeholder-agregar">
-                <span>Agregar nuevo usuario</span>
-            </div>
-            <div class="formulario-flotante">
-                <input type="text" id="nombre" placeholder="Nombre" required>
-                <input type="email" id="correo" placeholder="Correo electrónico" required>
-                <button id="btn-guardar">Guardar</button>
-            </div>
-        </div>
-
-
         <div class="dato-largo">
             <p>Equipo:</p>
         </div>
-
         <div class="datos-inferiores" id="usuarios-container">
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        fetch("/api/usuarios")
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("usuarios-container");
+                data.forEach(usuario => {
+                    const p = document.createElement("p");
+                    p.textContent = `${usuario.nombre} - ${usuario.correo}`;
+                    container.appendChild(p);
+                });
+            });
+    </script>
 </body>
 </html>
